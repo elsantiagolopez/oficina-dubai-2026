@@ -1,14 +1,16 @@
 import { NextResponse } from "next/server";
 import fs from "fs";
+import path from "path";
+import os from "os";
 
-const BROADCAST_FILE = "/tmp/pixel-agents-broadcast.json";
+const BROADCAST_FILE = path.join(os.tmpdir(), "pixel-agents-broadcast.json");
 
-export interface BroadcastConfig {
+interface BroadcastConfig {
   broadcast: boolean;
   showPaths: boolean;
 }
 
-export function readBroadcastConfig(): BroadcastConfig {
+function readBroadcastConfig(): BroadcastConfig {
   try {
     return JSON.parse(fs.readFileSync(BROADCAST_FILE, "utf8"));
   } catch {
